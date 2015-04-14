@@ -1,0 +1,10 @@
+[user]
+	name = Santiago Torres
+	email = torresariass@gmail.com
+[log]
+	decorate = full
+[color]
+	ui = true
+[core]
+	excludesfile = /home/santiago/.gitignore_global
+	editor = vi
