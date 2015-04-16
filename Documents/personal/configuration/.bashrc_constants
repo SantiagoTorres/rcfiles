@@ -1,0 +1,6 @@
+#!/bin/bash 
+
+export IRCNICK='sangy'
+export IRCNAME='sangy'
+set -o vi
+export EDITOR=vim

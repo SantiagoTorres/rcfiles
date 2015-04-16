@@ -1,0 +1,53 @@
+
+# this function sets the path to the localfolder
+function workHere() {
+    export PATH=$PATH:$PWD
+}
+
+
+# this function pretty prints which
+function guich() {
+    which "$1" | cut -c1-$(($(which "$1" | wc -c)-$(echo "$1" | wc -c)))
+}
+
+# this function generates a hash of the time to produce a random password
+function getmeaPW() { 
+    cat /proc/uptime | md5sum >> ~/.pws; tail -n 1 ~/.pws;
+}
+
+# this functions sets the environment to work with the android SDK
+function devAndroid() { 
+    export PATH=$PATH:~/Documents/adt-4.4/sdk/tools:~/Documents/adt-4.4/sdk/platform-tools;
+}
+
+## ADD THINGS TO DO
+function new_thing_to_do() {
+    
+    SHOULD_CONFIRM_DATE=0
+
+    # title should be a string
+    TITLE=`echo $1 | tr -d '[=\\]'`
+
+    # the deadline should be a string made with the date function.
+    # we can be set to confirm by modifying the flag above so it is easier to sort
+    DEADLINE=`date -d "$2" +%Y%M%d`
+
+    # the comments for the task can be added as a third argument
+    COMMENTS=`echo $3 | tr -d '[=\\=]'`
+
+    echo "$DEADLINE\\$TITLE\\$COMMENTS" >> thingsToDo.txt
+    echo "$DEADLINE\\$TITLE\\$COMMENTS" 
+    sort thingsToDo.txt -f \\ -k 1 > thingsToDo.txt
+    echo " ===== "
+    cat thingstoDo.txt
+}
+
+
+# deprecated functions
+# do not use this
+## function tsjdfPW(){ cat ~/pw.pw | xsel --clipboard --input; }
+
+# do not use this
+# function setTUF(){ export PYTHONPATH=$PYTHONPATH:/home/santiago/Documents/o2013/NYU/TUF/tuf/;}
+
+

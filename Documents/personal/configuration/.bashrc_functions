@@ -1,0 +1,177 @@
+
+# this function sets the path to the localfolder
+function workHere() {
+    export PATH=$PATH:$PWD
+}
+
+# this function converts from hexadecimal to decimal
+function hex2dec() {
+    echo "ibase=16;$(echo $1 | tr '[:lower:]' '[:upper:]')"|bc
+}
+
+
+# this function pretty prints which
+function guich() {
+    which "$1" | cut -c1-$(($(which "$1" | wc -c)-$(echo "$1" | wc -c)))
+}
+
+# this function generates a hash of the time to produce a random password
+function getmeaPW() { 
+    cat /proc/uptime | md5sum >> ~/.pws; tail -n 1 ~/.pws;
+}
+
+# this functions sets the environment to work with the android SDK
+function devAndroid() { 
+    export PATH=$PATH:~/Documents/adt-4.4/sdk/tools:~/Documents/adt-4.4/sdk/platform-tools;
+}
+
+## ADD THINGS TO DO
+# this function expects three arguments: 
+#   1) the due date for the thing to do: it can be "tomorrow" for example
+#   2) The title of the thing to do, a descriptive string would be nice
+#   3) some longer comment
+#
+# the side efects include:
+#   it will create/modify the thingsToDo.txt file
+#
+# Example:
+#   new_thing_to_do "today" "buy beers" "My Friend J.S. Bach likes Corona"
+#
+function new_thing_to_do() {
+    
+    SHOULD_CONFIRM_DATE=0
+
+    # title should be a string
+    TITLE=`echo $2 | tr -d '[=/=]'`
+
+    # the deadline should be a string made with the date function.
+    # we can be set to confirm by modifying the flag above so it is easier to sort
+    DEADLINE=`date -d "$1" +%Y%m%d`
+
+    # the comments for the task can be added as a third argument
+    COMMENTS=`echo $3 | tr -d '[=/=]'`
+
+    # add the new task to the file and sort it again. This should be fast enough
+    echo "$DEADLINE/$TITLE/$COMMENTS" >> thingsToDo.txt
+    sort thingsToDo.txt -t / -k 1 -o thingsToDo.txt
+}
+
+# this function should send an alert if the thing to do is overdue
+# add this to your bashrc to check which tasks should be done already
+function are_tasks_overdue() {
+     
+    if [ "$PWD" != "$HOME" ]
+    then
+        return 0
+    fi
+
+
+    TODAY=`date +%Y%m%d`
+    
+    # TODO, are there pluggable callbacks?
+    
+    mv thingsToDo{.txt,.bak}
+
+    i=1
+    while read -r line <&3
+    do
+        DATE=$(echo "$line" | cut -d / -f 1)
+        if [ $DATE -le $TODAY ]
+        then
+	    i=$(expr $i + 1)
+            print_overdue_task "$line"
+            echo "is it done now? (y/n)"
+            read -r is_it_done
+
+            if [ $is_it_done != "y" ]
+            then
+                echo "$line" >> thingsToDo.txt
+            fi 
+        else
+            break
+            #echo $line >> thingsToDo.txt
+        fi
+    done 3< thingsToDo.bak 
+    
+    # append the rest of the file to the todo list 
+    echo "appending the rest of the tasks"
+    echo $i
+    if [ $i -gt 1 ]
+    then
+	    tail -n +$i thingsToDo.bak >> thingsToDo.txt
+    else
+	    cp thingsToDo.bak thingsToDo.txt
+    fi
+
+    # print the closest things in the todo
+    print_next_tasks
+
+}
+
+# helper function to pretty print overdue tasks
+function print_overdue_task() {
+
+    IFS=/
+    read -r DATE TITLE COMMENTS <<< "$1"
+    
+    FORMAT_DATE=$(expr $(date -d $DATE +%s) - $(date +%s))
+
+    # I am fixing this to 24 hours, if we are not able to
+    # we will default to days.
+    if [ $FORMAT_DATE -le 86400 ]
+    then
+        FORMAT_DATE="$(expr $FORMAT_DATE / 3600) hours"
+    else
+        FORMAT_DATE="$(expr $FORMAT_DATE / 86400) days"
+    fi
+
+    cat << EOF
+    ==================================
+        $TITLE is overdue by $FORMAT_DATE
+           $COMMENTS
+    =================================
+EOF
+    unset IFS
+}
+
+# helper function to print next tasks
+function print_next_tasks() {
+    IFS=/
+    while read -r DATE TITLE COMMENTS
+    do
+        YEAR=$(echo "$DATE" | head -c 4)
+        MONTH=$(echo "$DATE" | head -c 6 | tail -c 2)
+        DAY=$(echo "$DATE" | tail -c 3)
+
+        cat << EOF
+        ================================
+        $TITLE is due for $YEAR/$MONTH/$DAY
+        ================================
+EOF
+    done <<< "$(head -n 5 thingsToDo.txt)"
+    unset IFS
+}
+
+########################################
+# shows a pretty printed schedule
+function show_pp_schedule() {
+    if [ -n "$1" ]
+    then
+        SCHEDULE=$1
+        echo "lol"
+    else
+        SCHEDULE="/home/santiago/Documents/personal/horario.thx"
+    fi
+    echo "[$SCHEDULE]"
+    cat $SCHEDULE
+}
+
+# deprecated functions
+# do not use this
+## function tsjdfPW(){ cat ~/pw.pw | xsel --clipboard --input; }
+
+# do not use this
+# function setTUF(){ export PYTHONPATH=$PYTHONPATH:/home/santiago/Documents/o2013/NYU/TUF/tuf/;}
+
+
+
