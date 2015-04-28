@@ -1,0 +1,6 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+image/jpg; convert %s jpg:- | jp2a - --width=80; copiousoutput
+image/jpeg; jp2a %s --width=80; copiousoutput
+image/png; convert %s jpg:- | jp2a - --width=80; copiousoutput;
+
+application/x-ica; /home/santiago/ICAClient/linuxx86/wfica.sh %s; x-mozilla-flags=plugin:Citrix ICA Client
