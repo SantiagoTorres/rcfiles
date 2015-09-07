@@ -1,0 +1,154 @@
+set editor=vim
+
+#-----------#
+# Passwords #
+#-----------#
+source "gpg --textmode -d ~/.sec/pass.gpg |"
+
+#---------------#
+# Account Hooks #
+#---------------#
+account-hook . "unset imap_user; unset imap_pass; unset tunnel" # unset first!
+set imap_authenticators="PLAIN"
+    account-hook    "imaps://torresariass@gmail.com@imap.gmail.com/" "\
+    set imap_user   = torresariass@gmail.com \
+        imap_pass   = $my_torresariass_pass" \
+
+# update for the rest
+
+# -------------------------- #
+# Ignore unnecessary header  #
+# -------------------------- #
+ignore *                                                                        
+unignore From: To: Cc: Date: Subject:   
+
+#-------------------------------------#
+# Folders, mailboxes and folder hooks #
+#------------------------------------#
+# Setup for torresariass:
+  set folder          = imaps://torresariass@gmail.com@imap.gmail.com/
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail' =[Gmail]/Spam
+  set spoolfile       = +INBOX
+  folder-hook         imaps://torresariass@gmail.com@imap.gmail.com/ "\
+      set folder      = imaps://torresariass@gmail.com@imap.gmail.com/ \
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Santiago Torres <torresariass@gmail.com> ' \
+          realname    = 'Santiago Torres Arias' \
+          smtp_url    = smtps://torresariass@smtp.gmail.com \
+          smtp_pass   = $my_torresariass_pass"
+
+#--------#
+# Macros #
+#--------#
+#
+macro index <F1> "y12<return><return>" # jump to mailbox number 12 (toresariass inbox)
+macro index <F2> "y6<return><return>"  # jump to mailbox number 6 (torresariass inbox)
+
+#-------------------------#
+# Misc. optional settings #
+#-------------------------#
+# Check for mail every minute for current IMAP mailbox every 1 min
+set timeout         = 60
+# Check for new mail in ALL mailboxes every 15 sec
+set mail_check      = 15
+# keep imap connection alive by polling intermittently (time in seconds)
+set imap_keepalive  = 300
+# allow mutt to open new imap connection automatically
+set imap_passive
+# strict threads...
+set strict_threads=yes
+
+# store message headers locally to speed things up
+# (the ~/.mutt folder MUST exist! Arch does not create it by default)
+set header_cache    = ~/.mutt/hcache
+set message_cachedir= ~/.mutt/cache
+# sort mail by threads
+set sort            = threads
+# and sort threads by date
+set sort_aux        = last-date-received
+
+# Index Key Bindings ---------------------------------
+bind index gg       first-entry
+bind index G        last-entry
+
+bind index R        group-reply
+bind index <tab>    sync-mailbox
+bind index <space>  collapse-thread
+bind index ]        next-unread
+bind index [        previous-unread
+#macro index d       "<delete-message><sync-mailbox>" "delete and sync mailbox"
+macro index 'y' 'M<change-folder>?<toggle-mailboxes>'
+
+# Pager View Options ---------------------------------
+set pager_index_lines = 10 # number of index lines to show
+set pager_context = 3      # number of context lines to show
+set pager_stop             # don't go to next message automatically
+set menu_scroll            # scroll in menus
+set tilde                  # show tildes like in vim
+unset markers              # no ugly plus signs
+
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+alternative_order text/plain text/enriched text/html
+
+# Pager Key Bindings ---------------------------------
+bind pager k  previous-line
+bind pager j  next-line
+bind pager gg top
+bind pager G  bottom
+bind pager R  group-reply
+
+# Status Bar -----------------------------------------
+set status_on_top = yes
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]─[ Unread: %u ]─[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+
+# Replying
+set fast_reply = yes # do not ask for to, cc, subject, etc
+set include = yes # always include the body of the emails
+set delete = yes # automatically purge deleted messages on sync
+set quit=ask-no
+
+# open urls from the pager
+macro pager \Cu "|urlview<enter>" "call urlview to open links"
+
+# viewing HTML
+auto_view text/html
+alternative_order text/plain text/enriched text/html
+
+# viewing images
+auto_view image/jpg image/jpeg image/png
+
+
+# add some color to your life
+source ~/.muttrc.colors
+
+# This needs our fork of mutt...
+set new_command="notify-send --icon='/home/santiago/Pictures/mutt.png' 'New Email in %f' '%n new messages, %u unread.' &"
+
++####################
+# pgp related stuff
++####################
+
+set pgp_replyencrypt
+
+# GnuPG configuration
+set pgp_decode_command="gpg --status-fd=2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
+set pgp_verify_command="gpg --status-fd=2 --no-verbose --quiet --batch --output - --verify %s %f"
+set pgp_decrypt_command="gpg --status-fd=2 %?p?--passphrase-fd 0? --no-verbose --quiet --batch --output - %f"
+set pgp_sign_command="gpg --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --detach-sign --textmode %?a?-u %a? %f"
+set pgp_clearsign_command="gpg --no-verbose --batch --quiet --output - %?p?--passphrase-fd 0? --armor --textmode --clearsign %?a?-u %a? %f"
+set pgp_encrypt_only_command="/usr/lib/mutt/pgpewrap gpg --batch --quiet --no-verbose --output - --encrypt --textmode --armor --always-trust -- -r %r -- %f"
+set pgp_encrypt_sign_command="/usr/lib/mutt/pgpewrap gpg %?p?--passphrase-fd 0? --batch --quiet --no-verbose --textmode --output - --encrypt --sign %?a?-u %a? --armor --always-trust -- -r %r -- %f"
+set pgp_import_command="gpg --no-verbose --import %f"
+set pgp_export_command="gpg --no-verbose --export --armor %r"
+set pgp_verify_key_command="gpg --verbose --batch --fingerprint --check-sigs %r"
+set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --list-keys %r"
+set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --list-secret-keys %r"
+set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
+
+
+# mutt aliases (empty atm)
+set alias_file = ~/.mutt_alias
+source ~/.mutt_alias

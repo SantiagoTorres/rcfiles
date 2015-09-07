@@ -1,0 +1,154 @@
+# vim: filetype=muttrc
+
+#
+#
+# make sure that you are using mutt linked against slang, not ncurses, or
+# suffer the consequences of weird color issues. use "mutt -v" to check this.
+
+# custom body highlights -----------------------------------------------
+# highlight my name and other personally relevant strings
+color body          red        default       "(santiago|Santiago|Sangy|Shoestockphoto|volturnus)"
+# custom index highlights ----------------------------------------------
+
+# for background in 16 color terminal, valid background colors include:
+# base03, bg, default, any of the non brights
+
+# basic colors ---------------------------------------------------------
+color normal        red              default
+color error         brightred        default
+color tilde         brightwhite        default
+color message       brightcyan         default
+color markers       brightred          green
+color attachment    brightcyan        default
+color search        cyan              default
+#color status        J_default         J_status
+color status        black           green
+color indicator     black           yellow
+color tree          default         default                                    # arrow in threads
+
+# basic monocolor screen
+mono  bold          bold
+mono  underline     underline
+mono  indicator     reverse
+mono  error         bold
+
+# index ----------------------------------------------------------------
+
+#color index         brightred        default        "~D(!~p|~p)"               # deleted
+#color index         green        default        ~F                         # flagged
+#color index         green        default        ~=                         # duplicate messages
+#color index         cyan        default        "~A!~N!~T!~p!~Q!~F!~D!~P"  # the rest
+#color index         J_base          default        "~A~N!~T!~p!~Q!~F!~D"      # the rest, new
+color index         default default "~A"                        # all messages
+color index         green            default "~E"                        # expired messages
+color index         cyan         default        "~N"                        # new messages
+color index         blue         default        "~O"                        # old messages
+color index         cyan         default        "~Q"                        # messages that have been replied to
+color index         cyan        default        "~R"                        # read messages
+color index         blue         default        "~U"                        # unread messages
+color index         blue         default        "~U~$"                      # unread, unreferenced messages
+color index         red        default        "~v"                        # messages part of a collapsed thread
+color index         red        default        "~P"                        # messages from me
+color index         brightblue         default        "~p!~F"                     # messages to me
+color index         brightblue         default        "~N~p!~F"                   # new messages to me
+color index         brightblue         default        "~U~p!~F"                   # unread messages to me
+color index         cyan        default        "~R~p!~F"                   # messages to me
+color index         brightred        default        "~F"                        # flagged messages
+color index         brightred        default        "~F~p"                      # flagged messages to me
+color index         brightred        default        "~N~F"                      # new flagged messages
+color index         brightred        default        "~N~F~p"                    # new flagged messages to me
+color index         brightred        default        "~U~F~p"                    # new flagged messages to me
+color index         green        brightred        "~D"                        # deleted messages
+color index         brightgreen        default        "~v~(!~N)"                  # collapsed thread with no unread
+color index         brightyellow        default        "~v~(~N)"                   # collapsed thread with some unread
+color index         blue         default        "~N~v~(~N)"                 # collapsed thread with unread parent
+# statusbg used to indicated flagged when foreground color shows other status
+# for collapsed thread
+color index         brightred        green        "~v~(~F)!~N"                # collapsed thread with flagged, no unread
+color index         brightyellow        green        "~v~(~F~N)"                 # collapsed thread with some unread & flagged
+color index         blue         green        "~N~v~(~F~N)"               # collapsed thread with unread parent & flagged
+color index         blue         green        "~N~v~(~F)"                 # collapsed thread with unread parent, no unread inside, but some flagged
+color index         brightblue         green        "~v~(~p)"                   # collapsed thread with unread parent, no unread inside, some to me directly
+color index         brightyellow        brightred        "~v~(~D)"                   # thread with deleted (doesn't differentiate between all or partial)
+#color index         brightyellow        default        "~(~N)"                    # messages in threads with some unread
+#color index         blue         default        "~S"                       # superseded messages
+#color index         brightred        default        "~T"                       # tagged messages
+#color index         green        brightred        "~="                       # duplicated messages
+
+# message headers ------------------------------------------------------
+
+#color header        cyan        default        "^"
+color hdrdefault    cyan        default
+color header        red        default        "^(From)"
+color header        blue         default        "^(Subject)"
+
+# body -----------------------------------------------------------------
+
+color quoted        green              default
+color quoted1       cyan               default
+color quoted2       brightyellow        default
+color quoted3       brightred        default
+color quoted4       green        default
+
+color signature     cyan        default
+color bold          green        default
+color underline     green        default
+color normal        red        default
+#
+color body          brightgreen        default        "[;:][-o][)/(|]"    # emoticons
+color body          brightgreen        default        "[;:][)(|]"         # emoticons
+color body          brightgreen        default        "[*]?((N)?ACK|NYU|LOL|SCNR|BRB|BTW|CWYL|\
+                                                     |FWIW|vbg|GD&R|HTH|HTHBE|IMHO|IMNSHO|\
+                                                     |IRL|RTFM|ROTFL|ROFL|YMMV)[+]?"
+color body          brightgreen        default        "[ ][*][^*]*[*][ ]?" # more emoticon?
+color body          brightgreen        default        "[ ]?[*][^*]*[*][ ]" # more emoticon?
+
+## pgp
+
+color body          brightred        default        "(BAD signature)"
+color body          brightblue         default        "(Good signature)"
+color body          default        default        "^gpg: Good signature .*"
+color body          red        default        "^gpg: "
+color body          red        brightred        "^gpg: BAD signature from.*"
+mono  body          bold                            "^gpg: Good signature"
+mono  body          bold                            "^gpg: BAD signature from.*"
+
+# yes, an insance URL regex
+color body          brightred        default        "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+# and a heavy handed email regex
+#color body          J_magent        default        "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# Various smilies and the like
+color body          yellow        default        "<[Gg]>"                            # <g>
+color body          yellow        default        "<[Bb][Gg]>"                        # <bg>
+color body          brightyellow        default        " [;:]-*[})>{(<|]"                  # :-) etc...
+# *bold*
+color body          cyan    default        "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+mono  body          bold                            "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+# _underline_
+color body          cyan    default        "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+mono  body          underline                       "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+# /italic/  (Sometimes gets directory names)
+color body         cyan         default        "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+mono body          underline                       "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+
+# ## Email addresses.
+#color body brightgreen default "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+#
+# ## Header
+color header brightmagenta default "^from:"
+color header green default "^to:"
+color header green default "^cc:"
+color header green default "^date:"
+color header yellow default "^newsgroups:"
+color header yellow default "^reply-to:"
+
+# http://karelzak.blogspot.com/2010/02/highlighted-patches-inside-mutt.html
+# diffs coming from github, thanks to @adamrp, for making this work better
+color body green default "^(\>\ )*diff \-.*"
+color body green default "^(\>\ )*index [a-f0-9].*"
+color body green default "^\(\>\ )*\-\-\- .*"
+color body green default "^(\>\ )*[\+]{3} .*"
+color body brightgreen default "^(\>\ )*[\+].*"
+color body brightred  default "^(\>\ )*[\-].*"
+color body cyan default "^(\>\ )*@@ .*"
