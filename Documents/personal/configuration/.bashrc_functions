@@ -16,17 +16,17 @@ function guich() {
 }
 
 # this function generates a hash of the time to produce a random password
-function getmeaPW() { 
+function getmeaPW() {
     cat /proc/uptime | md5sum >> ~/.pws; tail -n 1 ~/.pws;
 }
 
 # this functions sets the environment to work with the android SDK
-function devAndroid() { 
+function devAndroid() {
     export PATH=$PATH:~/Documents/adt-4.4/sdk/tools:~/Documents/adt-4.4/sdk/platform-tools;
 }
 
 ## ADD THINGS TO DO
-# this function expects three arguments: 
+# this function expects three arguments:
 #   1) the due date for the thing to do: it can be "tomorrow" for example
 #   2) The title of the thing to do, a descriptive string would be nice
 #   3) some longer comment
@@ -38,7 +38,7 @@ function devAndroid() {
 #   new_thing_to_do "today" "buy beers" "My Friend J.S. Bach likes Corona"
 #
 function new_thing_to_do() {
-    
+
     SHOULD_CONFIRM_DATE=0
 
     # title should be a string
@@ -59,7 +59,7 @@ function new_thing_to_do() {
 # this function should send an alert if the thing to do is overdue
 # add this to your bashrc to check which tasks should be done already
 function are_tasks_overdue() {
-     
+
     if [ "$PWD" != "$HOME" ]
     then
         return 0
@@ -67,9 +67,9 @@ function are_tasks_overdue() {
 
 
     TODAY=`date +%Y%m%d`
-    
+
     # TODO, are there pluggable callbacks?
-    
+
     mv thingsToDo{.txt,.bak}
 
     i=1
@@ -86,14 +86,14 @@ function are_tasks_overdue() {
             if [ $is_it_done != "y" ]
             then
                 echo "$line" >> thingsToDo.txt
-            fi 
+            fi
         else
             break
             #echo $line >> thingsToDo.txt
         fi
-    done 3< thingsToDo.bak 
-    
-    # append the rest of the file to the todo list 
+    done 3< thingsToDo.bak
+
+    # append the rest of the file to the todo list
     echo "appending the rest of the tasks"
     echo $i
     if [ $i -gt 1 ]
@@ -113,7 +113,7 @@ function print_overdue_task() {
 
     IFS=/
     read -r DATE TITLE COMMENTS <<< "$1"
-    
+
     FORMAT_DATE=$(expr $(date -d $DATE +%s) - $(date +%s))
 
     # I am fixing this to 24 hours, if we are not able to
@@ -164,6 +164,18 @@ function show_pp_schedule() {
     fi
     echo "[$SCHEDULE]"
     cat $SCHEDULE
+}
+
+
+##### Removes my name when reporting errors ################
+function redacted() {
+
+   while read data
+   do
+       # ugliest regexp ever
+       echo $data | sed 's/\(santiago\|torres\|arias\)/\[redacted\]/gI'
+  done
+
 }
 
 # deprecated functions
