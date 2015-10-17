@@ -1,18 +1,19 @@
 URxvt*.transparent: true
-URxvt*.background : #C0C0C0
+URxvt*.background : #101010
 URxvt*.shading: 15
-URxvt*.foreground: gray
+URxvt*.foreground: gray60
 
 ! Fonts
-URxvt*font:                 xft:Monospace:pixelsize=15
-URxvt*boldFont:             xft:Monospace:pixelsize=15
-URxvt.letterSpace:          -1
+URxvt*font:                 xft:georgia:size=12
+URxvt*boldFont:             xft:georgia:size=12
+URxvt.letterSpace:          -4
 
 ! Perl extensions
 URxvt.perl-ext-common:      default,matcher,clipboard,tabbed
 URxvt.iso14755:             False
 URxvt.matcher.button:       1
-URxvt.urlLauncher:          ~/./firefox -new-tab
+URxvt.urlLauncher:          white
+URxvt.url-launcher:         /home/santiago/firefox
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.clipboard.pastecmd: xsel -ob
@@ -28,8 +29,8 @@ URxvt*color4: cyan
 URxvt*color5: magenta3
 URxvt*color6: cyan3
 URxvt*color7: gray90
-URxvt*color8: grey50
-URxvt*color9: blue7
+URxvt*color8: gray50
+URxvt*color9: blue
 URxvt*color10: red
 URxvt*color11: yellow
 URxvt*color12: green
@@ -37,8 +38,13 @@ URxvt*color13: magenta
 URxvt*color14: cyan
 URxvt*color15: white
 
-#URxvt*.font: 9x15
+# URxvt*.font: 9x15
 URxvt*.scrollBar: false
+
+# stop auto-scroll
+URxvt*scrollTtyOutput:      false
+URxvt*scrollWithBuffer:     true
+URxvt*scrollTtyKeypress:    true
 
 #URxvt*.depth:32
 #URxvt*.background :rgba:0000/0000/0000/dddd
