@@ -59,7 +59,7 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h ':L' : \w\a\]$PS1"
     ;;
 *)
     ;;
@@ -107,7 +107,9 @@ echo " Checking our tasks..."
 #show_pp_schedule
 
 # is the internet on fire status reports from a random cow
-COW=`ls -1 /usr/share/cowsay/cows/ | sort -R | head -1`
-host -t txt istheinternetonfire.com | cut -f 2 -d '"' | cowsay -f $COW
+COW=`ls -1 /usr/share/cows/ | sort -R | head -1`
+host -t txt istheinternetonfire.com | cut -f 2 -d '"' | cowsay -f $COW | lolcat
 
-source /usr/local/bin/virtualenvwrapper.sh
+export PATH=~/bin:$PATH
+
+source /usr/bin/virtualenvwrapper.sh
