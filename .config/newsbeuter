@@ -1,0 +1,17 @@
+# keys config
+unbind-key k
+bind-key k up
+
+unbind-key j
+bind-key j down
+
+unbind-key UP
+bind-key K prev-feed
+
+unbind-key DOWN
+bind-key J next-feed
+
+# color config
+color listnormal white default
+color listfocus  green default
+color info      yellow default bold
