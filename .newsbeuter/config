@@ -11,7 +11,20 @@ bind-key K prev-feed
 unbind-key DOWN
 bind-key J next-feed
 
+# rss reload
+auto-reload yes
+reload-time 30
+
+# cache settings
+keep-articles-days 30
+
+# setup notifications
+notify-program "/usr/bin/notify-send"
+
+
 # color config
 color listnormal white default
 color listfocus  green default
+color listnormal_unread white default bold
+color listfocus_unread default green
 color info      yellow default bold
