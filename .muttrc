@@ -13,8 +13,29 @@ set imap_authenticators="PLAIN"
     account-hook    "imaps://torresariass@gmail.com@imap.gmail.com/" "\
     set imap_user   = torresariass@gmail.com \
         imap_pass   = $my_torresariass_pass" \
+        imap_authenticators = "plain"
 
-# update for the rest
+account-hook        "imaps://sat417@nyu.edu@imap.gmail.com" "\
+    set imap_user   = sat417@nyu.edu \
+        imap_pass   = $my_sat417_nyu_pass"
+
+account-hook        "imaps://amoakaterinaivanovna@imap.gmail.com" "\
+    set imap_user   = amoakaterinaivanovna\
+        imap_pass   = $my_amoakaterinaivanovna_pass"
+
+account-hook        "imaps://santiagotorresarias@hotmail.com@imap-mail.outlook.com" "\
+    set imap_user   = santiagotorresarias@hotmail.com\
+        imap_pass   = $my_santiagotorresarias_pass"
+
+account-hook        "imaps://storres@lnphi.com@imap.gmail.com" "\
+    set imap_user   = storres@lnphi.com\
+        imap_pass   = $my_lnphi_pass"
+
+account-hook        "imaps://sangy@mail.riseup.net" "\
+    set imap_user   = sangy\
+        imap_pass   = $my_riseup_pass"
+
+
 
 # -------------------------- #
 # Ignore unnecessary header  #
@@ -39,6 +60,79 @@ unignore From: To: Cc: Date: Subject:   
           smtp_url    = smtps://torresariass@smtp.gmail.com \
           smtp_pass   = $my_torresariass_pass"
 
+# Setup for nyu
+  set folder          = imaps://sat417@nyu.edu@imap.gmail.com/
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail'
+  set spoolfile       = +INBOX
+  folder-hook         imaps://sat417@nyu.edu@imap.gmail.com/ "\
+      set folder      = imaps://sat417@nyu.edu@imap.gmail.com\
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Santiago Torres <santiago@nyu.edu> ' \
+          realname    = 'Santiago Torres Arias' \
+          smtp_url    = smtps://sat417@nyu.edu@smtp.gmail.com \
+          smtp_pass   = $my_sat417_nyu_pass"
+
+# Setup for amoakaterinaivanovna
+  set folder          = imaps://amoakaterinaivanovna@imap.gmail.com/
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail' =[Gmail]/Spam
+  set spoolfile       = +INBOX
+  folder-hook         imaps://amoakaterinaivanovna@imap.gmail.com/ "\
+      set folder      = imaps://amoakaterinaivanovna@imap.gmail.com\
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Santiago Torres <amoakaterinaivanovna@gmail.com>' \
+          realname    = 'Santiago Torres Arias' \
+          smtp_url    = smtps://amoakaterinaivanovna@smtp.gmail.com \
+          smtp_pass   = $my_amoakaterinaivanovna_pass"
+
+# Setup for santiagotorresarias
+  set folder          = imaps://santiagotorresarias@hotmail.com@imap-mail.outlook.com/
+  mailboxes           = +INBOX
+  set spoolfile       = +INBOX
+  folder-hook         imaps://santiagotorresarias@hotmail.com@imap-mail.outlook.com/ "\
+      set folder      = imaps://santiagotorresarias@hotmail.com@imap-mail.outlook.com\
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Santiago Torres <santiagotorresarias@hotmail.com>' \
+          realname    = 'Santiago Torres Arias' \
+          smtp_url    = smtp://santiagotorresarias@hotmail.com@smtp.live.com \
+          ssl_starttls = yes \
+          smtp_pass   = $my_santiagotorresarias_pass"
+
+
+# Setup for lnphi
+  set folder          = imaps://storres@lnphi.com@imap.gmail.com/
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail'
+  set spoolfile       = +INBOX
+  folder-hook         imaps://storres@lnphi.com@imap.gmail.com/ "\
+      set folder      = imaps://storres@lnphi.com@imap.gmail.com\
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Santiago Torres <storres@lnphi.com> ' \
+          realname    = 'Santiago Torres Arias' \
+          smtp_url    = smtps://storres@lnphi.com@smtp.gmail.com \
+          smtp_pass   = $my_lnphi_pass"
+
+# Setup for riseup 
+  set folder          = imaps://sangy@mail.riseup.net/
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail'
+  set spoolfile       = +INBOX
+  folder-hook         imaps://sangy@mail.riseup.net/ "\
+      set folder      = imaps://sangy@mail.riseup.net\
+          spoolfile   = +INBOX \
+          postponed   = +[Gmail]/Drafts \
+          record      = +[Gmail]/'Sent Mail' \
+          from        = 'Sangy <sangy@riseup.net> ' \
+          realname    = '' \
+          smtp_url    = smtps://sangy@mail.riseup.net \
+          smtp_pass   = $my_riseup_pass"
+
+
 #--------#
 # Macros #
 #--------#
@@ -46,19 +140,33 @@ unignore From: To: Cc: Date: Subject:   
 macro index <F1> "y12<return><return>" # jump to mailbox number 12 (toresariass inbox)
 macro index <F2> "y6<return><return>"  # jump to mailbox number 6 (torresariass inbox)
 
+
+#-----------------------#
+# Gmail-specific macros #
+#-----------------------#
+
+# to delete more than 1 message, just mark them with "t" key and then do "d" on them
+# macro index d ";s+[Gmail]/Trash<enter><enter>" "Move to Gmail's Trash"
+# delete message, but from pager (opened email)
+# macro pager d "s+[Gmail]/Trash<enter><enter>"  "Move to Gmail's Trash"
+# undelete messages
+# macro index u ";s+INBOX<enter><enter>"         "Move to Gmail's INBOX"
+# macro pager u "s+INBOX<enter><enter>"          "Move to Gmail's INBOX"
+
 #-------------------------#
 # Misc. optional settings #
 #-------------------------#
 # Check for mail every minute for current IMAP mailbox every 1 min
 set timeout         = 60
 # Check for new mail in ALL mailboxes every 15 sec
-set mail_check      = 15
+set mail_check      = 270
 # keep imap connection alive by polling intermittently (time in seconds)
-set imap_keepalive  = 300
+set imap_keepalive  = 100
 # allow mutt to open new imap connection automatically
 set imap_passive
-# strict threads...
-set strict_threads=yes
+set imap_idle=yes
+set sleep_time=0
+unset check_new
 
 # store message headers locally to speed things up
 # (the ~/.mutt folder MUST exist! Arch does not create it by default)
@@ -68,6 +176,11 @@ set message_cachedir= ~/.mutt/cache
 set sort            = threads
 # and sort threads by date
 set sort_aux        = last-date-received
+
+# A lot of these awesome things come from:
+# http://stevelosh.com/blog/2012/10/the-homely-mutt/
+# http://linsec.ca/Using_mutt_on_OS_X
+set beep_new             # bell on new mails
 
 # Index Key Bindings ---------------------------------
 bind index gg       first-entry
@@ -80,6 +193,12 @@ bind index ]        next-unread
 bind index [        previous-unread
 #macro index d       "<delete-message><sync-mailbox>" "delete and sync mailbox"
 macro index 'y' 'M<change-folder>?<toggle-mailboxes>'
+
+# sidebar options
+# set sidebar_width=18
+# set sidebar_visible=yes
+# set sidebar_delim='|'
+# set sidebar_sort=yes
 
 # Pager View Options ---------------------------------
 set pager_index_lines = 10 # number of index lines to show
@@ -124,13 +243,17 @@ auto_view image/jpg image/jpeg image/png
 # add some color to your life
 source ~/.muttrc.colors
 
-# This needs our fork of mutt...
-set new_command="notify-send --icon='/home/santiago/Pictures/mutt.png' 'New Email in %f' '%n new messages, %u unread.' &"
+# set new_command="notify-send --icon='/home/santiago/Pictures/mutt.png' 'New Email in %f' '%n new messages, %u unread.' &"
 
-+####################
+# para que yoshiki deje de mamar
+#   bind index _ collapse-all
+#   set index_format = "%?M?#> &[%S]?%D %-15.15F %?M?%2e/%2E? %s"
+#   macro index .l "l!~p\n<collapse-all>" "Show all messages sent to a list"        
+#   macro index .p "l~p\n<collapse-all>" "Show all messages sent to me"
+#   macro index .a "l~A\n<collapse-all>" "Show all messages"  
+#   macro index .n "l(~N|~O)\n<collapse-all>" "Show all unread messages"
+
 # pgp related stuff
-+####################
-
 set pgp_replyencrypt
 
 # GnuPG configuration
@@ -148,10 +271,16 @@ set pgp_list_pubring_command="gpg --no-verbose --batch --quiet --with-colons --l
 set pgp_list_secring_command="gpg --no-verbose --batch --quiet --with-colons --list-secret-keys %r"
 set pgp_good_sign="^\\[GNUPG:\\] GOODSIG"
 
-# user agent removal
+# remove user agent
 set user_agent=no
 
 
-# mutt aliases (empty atm)
+# mutt aliases
 set alias_file = ~/.mutt_alias
 source ~/.mutt_alias
+
+# prevent mouse scrolling                                                       
+bind index <up>     end-cond
+bind index <down>   end-cond
+
+set strict_threads=yes
