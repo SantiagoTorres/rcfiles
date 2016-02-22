@@ -129,6 +129,7 @@ Plug 'rust-lang/rust.vim'
 "Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'jvirtanen/vim-octave'
 
 call plug#end()
 
@@ -145,5 +146,8 @@ let g:indent_guides_guide_size = 1
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 autocmd VimEnter * :IndentGuidesEnable
+
+" swapfiles
+set backupdir=/tmp
 
 
