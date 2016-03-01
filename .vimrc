@@ -131,6 +131,9 @@ Plug 'davidhalter/jedi-vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'jvirtanen/vim-octave'
 
+Plug 'vim-scripts/lh-vim-lib'
+Plug 'vim-scripts/local_vimrc.vim'
+
 call plug#end()
 
 " to enable indent colors (check
