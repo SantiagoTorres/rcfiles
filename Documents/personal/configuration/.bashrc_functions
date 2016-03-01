@@ -185,5 +185,6 @@ function redacted() {
 # do not use this
 # function setTUF(){ export PYTHONPATH=$PYTHONPATH:/home/santiago/Documents/o2013/NYU/TUF/tuf/;}
 
-
+# check which .so's are needed by a binary
+soneeded() { readelf -d $1 | awk '/NEEDED/ {gsub(/[\[\]]/, "", $5); print $5}' } 
 
