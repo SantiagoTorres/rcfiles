@@ -1,0 +1,8 @@
+[options]
+clickable_url = true
+browser=xdg-open
+font=monospace 11
+search_wrap=true
+
+[colors]
+background = rgba(33, 33, 33, 0.88)

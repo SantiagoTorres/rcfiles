@@ -1,0 +1,9 @@
+[Unit]
+Description=Notification Daemon
+
+[Service]
+Type=dbus
+BusName=org.freedesktop.Notifications
+#ExecStart=/usr/lib/notify-osd/notify-osd
+ExecStart=/usr/bin/dunst
+Restart=always
