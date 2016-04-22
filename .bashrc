@@ -88,3 +88,6 @@ export PATH=~/bin:$PATH
 eval "$(thefuck --alias)"
 eval $(dircolors ~/.dircolors)
 source /usr/bin/virtualenvwrapper.sh
+
+# prettay matlab functions
+alias matlab='MATLABPATH=${PWD} /usr/local/MATLAB/R2012b/bin/matlab -nosplash -nodesktop -r "cd ${PWD}"'
