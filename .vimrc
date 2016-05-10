@@ -101,6 +101,12 @@ else
   set clipboard=unnamed
 endif
 
+"   filetype plugin indent on
+"   set grepprg=grep\ -nH\ $*
+"   set makeprg=make
+"   let g:tex_flavor = "latex"
+
+
 
 " Because we all hate having the :W typo
 command W w

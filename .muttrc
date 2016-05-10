@@ -1,4 +1,4 @@
-set editor=vim
+set editor=nvim
 
 #-----------#
 # Passwords #
@@ -99,7 +99,7 @@ unignore From: To: Cc: Date: Subject:   
           record      = +[Gmail]/'Sent Mail' \
           from        = 'Santiago Torres <santiagotorresarias@hotmail.com>' \
           realname    = 'Santiago Torres Arias' \
-          smtp_url    = smtp://santiagotorresarias@hotmail.com@smtp.live.com \
+          smtp_url    = smtp://santiagotorresarias@hotmail.com@smtp.live.com:587 \
           ssl_starttls = yes \
           smtp_pass   = $my_santiagotorresarias_pass"
 
