@@ -92,5 +92,8 @@ source /usr/bin/virtualenvwrapper.sh
 # prettay matlab functions
 alias matlab='MATLABPATH=${PWD} /usr/local/MATLAB/R2012b/bin/matlab -nosplash -nodesktop -r "cd ${PWD}"'
 
+# listening to wqxr without the bloat
+alias wqxr="rtmpdump --quiet --live -r "rtmp://wnyc-wowza.streamguys.com:80/wqxr" --playpath classical | mpv -"
+
 # trying out nvim
 alias vim=nvim
