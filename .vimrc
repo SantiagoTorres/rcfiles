@@ -139,6 +139,7 @@ Plug 'jvirtanen/vim-octave'
 
 Plug 'vim-scripts/lh-vim-lib'
 Plug 'vim-scripts/local_vimrc.vim'
+Plug 'vim-scripts/javacomplete'
 
 call plug#end()
 
