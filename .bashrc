@@ -76,7 +76,8 @@ fi
 
 echo "welcome to LykOS"
 echo " Checking our tasks..."
-are_tasks_overdue
+#are_tasks_overdue
+when ci
 #show_pp_schedule
 
 # is the internet on fire status reports from a random cow
@@ -97,3 +98,4 @@ alias wqxr="rtmpdump --quiet --live -r "rtmp://wnyc-wowza.streamguys.com:80/wqxr
 
 # trying out nvim
 alias vim=nvim
+
