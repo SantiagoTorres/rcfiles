@@ -252,6 +252,7 @@ source ~/.muttrc.colors
 #   macro index .p "l~p\n<collapse-all>" "Show all messages sent to me"
 #   macro index .a "l~A\n<collapse-all>" "Show all messages"  
 #   macro index .n "l(~N|~O)\n<collapse-all>" "Show all unread messages"
+macro index ,g "<tag-thread><tag-prefix-cond><copy-message>/tmp/mymailbox<enter>"
 
 # pgp related stuff
 set pgp_replyencrypt
