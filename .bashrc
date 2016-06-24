@@ -86,7 +86,6 @@ host -t txt istheinternetonfire.com | cut -f 2 -d '"' | cowsay -f $COW | lolcat
 
 export PATH=~/bin:$PATH
 
-eval "$(thefuck --alias)"
 eval $(dircolors ~/.dircolors)
 source /usr/bin/virtualenvwrapper.sh
 
