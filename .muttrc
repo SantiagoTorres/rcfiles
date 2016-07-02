@@ -62,7 +62,7 @@ unignore From: To: Cc: Date: Subject:   
 
 # Setup for nyu
   set folder          = imaps://sat417@nyu.edu@imap.gmail.com/
-  mailboxes           = +INBOX =[Gmail]/'Sent Mail'
+  mailboxes           = +INBOX =[Gmail]/'Sent Mail' =[Gmail]/Spam
   set spoolfile       = +INBOX
   folder-hook         imaps://sat417@nyu.edu@imap.gmail.com/ "\
       set folder      = imaps://sat417@nyu.edu@imap.gmail.com\

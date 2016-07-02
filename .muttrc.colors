@@ -14,7 +14,7 @@ color body          red        default       "(santiago|Santiago|Sangy|Shoestock
 # base03, bg, default, any of the non brights
 
 # basic colors ---------------------------------------------------------
-color normal        red              default
+color normal        white              default
 color error         brightred        default
 color tilde         brightwhite        default
 color message       brightcyan         default
@@ -47,8 +47,8 @@ color index         cyan         default        "~Q"                        # me
 color index         cyan        default        "~R"                        # read messages
 color index         blue         default        "~U"                        # unread messages
 color index         blue         default        "~U~$"                      # unread, unreferenced messages
-color index         red        default        "~v"                        # messages part of a collapsed thread
-color index         red        default        "~P"                        # messages from me
+color index         white        default        "~v"                        # messages part of a collapsed thread
+color index         white        default        "~P"                        # messages from me
 color index         brightblue         default        "~p!~F"                     # messages to me
 color index         brightblue         default        "~N~p!~F"                   # new messages to me
 color index         brightblue         default        "~U~p!~F"                   # unread messages to me
@@ -79,7 +79,7 @@ color index         brightyellow        brightred        "~v~(~D)"              
 
 #color header        cyan        default        "^"
 color hdrdefault    cyan        default
-color header        red        default        "^(From)"
+color header        white        default        "^(From)"
 color header        blue         default        "^(Subject)"
 
 # body -----------------------------------------------------------------
@@ -93,7 +93,7 @@ color quoted4       green        default
 color signature     cyan        default
 color bold          green        default
 color underline     green        default
-color normal        red        default
+color normal        white        default
 #
 color body          brightgreen        default        "[;:][-o][)/(|]"    # emoticons
 color body          brightgreen        default        "[;:][)(|]"         # emoticons
