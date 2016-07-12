@@ -243,7 +243,7 @@ auto_view image/jpg image/jpeg image/png
 # add some color to your life
 source ~/.muttrc.colors
 
-# set new_command="notify-send --icon='/home/santiago/Pictures/mutt.png' 'New Email in %f' '%n new messages, %u unread.' &"
+set new_mail_command="notify-send --icon='/home/santiago/Pictures/mutt.png' 'New Email in %f' '%n new messages, %u unread.' &"
 
 # para que yoshiki deje de mamar
 #   bind index _ collapse-all
