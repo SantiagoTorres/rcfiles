@@ -1,7 +1,7 @@
 [options]
 clickable_url = true
 browser=xdg-open
-font=monospace 11
+font=monospace 10
 search_wrap=true
 
 [colors]
