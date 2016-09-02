@@ -1,10 +1,20 @@
 [user]
 	name = Santiago Torres
 	email = torresariass@gmail.com
+	signingkey = E8162295
 [log]
 	decorate = full
 [color]
 	ui = true
 [core]
 	excludesfile = /home/santiago/.gitignore_global
-	editor = vi
+	editor = vim
+[commit]
+	gpgsign = true
+
+[sendemail]
+    smtpEncryption = tls
+    smtpServer = smtp.gmail.com
+    smtpUser = sat417@nyu.edu
+    from = santiago@nyu.edu
+    smtpServerPort = 587
