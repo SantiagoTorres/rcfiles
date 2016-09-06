@@ -1,5 +1,5 @@
 [global]
-    font = Envy Code R 11
+    font = Envy Code R 10
  
     # allow a small subset of html markup:
     # <b>bold</b>
@@ -75,7 +75,7 @@
     idle_threshold = 0
  
     # Which monitor should the notifications be displayed on.
-    monitor = 1
+    monitor = 0
  
     # Display notification on focused monitor. Possible modes are:
     # mouse: follow mouse pointer
