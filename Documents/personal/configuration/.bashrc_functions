@@ -22,7 +22,8 @@ function getmeaPW() {
 
 # this functions sets the environment to work with the android SDK
 function devAndroid() {
-    export PATH=$PATH:~/Documents/adt-4.4/sdk/tools:~/Documents/adt-4.4/sdk/platform-tools;
+    export PATH=$PATH:~/Documents/personal/android-sdk-linux/tools:~/Documents/personal/android-sdk-linux/platform-tools;
+    export ANDROID_HOME=~/Documents/personal/android-sdk-linux/
 }
 
 ## ADD THINGS TO DO
@@ -186,5 +187,30 @@ function redacted() {
 # function setTUF(){ export PYTHONPATH=$PYTHONPATH:/home/santiago/Documents/o2013/NYU/TUF/tuf/;}
 
 # check which .so's are needed by a binary
-soneeded() { readelf -d $1 | awk '/NEEDED/ {gsub(/[\[\]]/, "", $5); print $5}' } 
+function soneeded() { 
+    readelf -d $1 | awk '/NEEDED/ {gsub(/[\[\]]/, "", $5); print $5}'; 
+}
 
+# setup the screens in the lab
+function dock_in_lab() { 
+    
+    if [ -z "$1" ]
+    then 
+        echo "Usage dock_in_lab (--start|--stop)"
+        return
+    fi
+
+    if [ "$1" == "--start" ]
+    then
+        xrandr --output HDMI1 --auto
+        xrandr --output VGA1 --auto --right-of HDMI1
+        xrandr --output eDP1 --off
+    elif [ "$1" == "--stop" ] 
+    then
+        xrandr --output eDP1 --auto
+        xrandr --output VGA1 --off
+        xrandr --output HDMI1 --off
+    else
+        echo "expected argument --start/--stop"
+    fi
+}
