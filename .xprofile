@@ -1,0 +1,46 @@
+#!/bin/bash
+# My custom xsession script. Thanks to John Goerzen for making all of this possible
+# load resources
+
+xrdb -merge .Xresources
+
+# setup dual screen
+xrandr --output eDP-0 --primary
+xrandr --output HDMI-0 --auto --right-of eDP-0
+
+
+# autolock after 10 mintutes (requires xautolock)(
+xautolock -time 10 -locker "pm action suspend" &
+
+# fire up apps
+trayer --edge top --align right --SetDockType true --SetPartialStrut true \
+    --transparent true --widthtype request --expand true  --tint 0x000000 --alpha 70 \
+    --height 18 &
+
+nm-applet --sm-disable &
+
+# setup compositing (requires installing xcompmgr)
+xcompmgr &
+
+# set battery daemon (for notification)
+cbatticon -i symbolic &
+
+# feh will set our background image (requires feh)
+feh --bg-fill /home/santiago/Documents/Backgrounds/bg.jpg
+
+# then we set the notification daemon
+systemctl --user set-environment DISPLAY=:0
+systemctl --user start notify-osd
+
+# start xscreensaver
+xscreensaver -no-splash &
+
+# diable the mouse when typing
+syndaemon -i 1.4 -d -t -k
+
+# finally, disable the touchscreen by default (requires xorg-xinput)
+xinput disable 11
+
+# everyything else will be managed by xmonad :)
+exec xmonad
+
