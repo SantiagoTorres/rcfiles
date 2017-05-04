@@ -5,4 +5,41 @@ font=monospace 10
 search_wrap=true
 
 [colors]
+# special
 background = rgba(33, 33, 33, 0.88)
+foreground      = #98d1ce
+foreground_bold = #98d1ce
+cursor          = #98d1ce
+
+# black
+color0  = #0a0f14
+color8  = #00151b
+
+# red
+color1  = #c33027
+color9  = #d26939
+
+# green
+color2  = #16a91b
+color10 = #78ef2d
+
+# yellow
+color3  = #edb54b
+color11 = #e4c341
+
+# blue
+color4  = #4984d5
+color12 = #4987d8
+
+# magenta
+color5  = #8e8185
+color13 = #888ba5
+
+# cyan
+color6  = #83c5ed
+color14 = #999caa
+
+# white
+color7  = #c0c0c0
+color15 = #d0d0d0
+
