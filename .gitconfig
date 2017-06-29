@@ -18,3 +18,5 @@
     smtpUser = sat417@nyu.edu
     from = santiago@nyu.edu
     smtpServerPort = 587
+[alias]
+	gud = init
