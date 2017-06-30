@@ -45,7 +45,7 @@ unignore From: To: Cc: Date: Subject:   
 
 #-------------------------------------#
 # Folders, mailboxes and folder hooks #
-#------------------------------------#
+#-------------------------------------#
 # Setup for torresariass:
   set folder          = imaps://torresariass@gmail.com@imap.gmail.com/
   mailboxes           = +INBOX =[Gmail]/'Sent Mail' =[Gmail]/Spam
